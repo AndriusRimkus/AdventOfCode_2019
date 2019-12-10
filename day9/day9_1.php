@@ -1,4 +1,5 @@
 <?php declare(strict_types=1);
+$startTime = microtime(true);
 
 $memory = file_get_contents(__DIR__.'/input');
 $memory = array_map('intval', explode(',', $memory));
@@ -53,7 +54,12 @@ $getParamValues = function (int $pointer, int $code) use (&$memory, &$relativeBa
     return [$memory[$param1Pointer] ?? 0, $memory[$param2Pointer] ?? 0, $memory[$param3Pointer] ?? 0];
 };
 
-$getComputerOutput = function (int $pointer, array $input) use (&$memory, &$relativeBase, $getParamPointers, $getParamValues) {
+$getComputerOutput = function (int $pointer, array $input) use (
+    &$memory,
+    &$relativeBase,
+    $getParamPointers,
+    $getParamValues
+) {
 
     for ($i = $pointer; $i < count($memory); $i++) {
         $code = $memory[$i];
@@ -116,4 +122,12 @@ $getComputerOutput = function (int $pointer, array $input) use (&$memory, &$rela
     }
 };
 
-$getComputerOutput(0, [2]);
+try {
+    $getComputerOutput(0, [2]);
+} catch (\Exception $e) {
+
+}
+
+$endTime = microtime(true);
+$execution_time = ($endTime - $startTime);
+print("Execution time: {$execution_time} sec");
