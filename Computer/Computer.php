@@ -2,9 +2,7 @@
 
 namespace Common;
 
-use Exception;
 use Generator;
-use http\Exception\InvalidArgumentException;
 
 class Computer
 {
